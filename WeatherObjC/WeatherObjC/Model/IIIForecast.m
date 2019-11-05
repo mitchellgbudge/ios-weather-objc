@@ -17,7 +17,7 @@
         _temperature = temperature;
         _image = [UIImage imageNamed:iconName];
     }
-    return self
+    return self;
 }
 
 -(instancetype)initWithName:(NSString *)name dictionary:(NSDictionary *)dictionary {
@@ -25,8 +25,8 @@
     double temperature = [temperatureDictionary[@"day"] doubleValue];
     NSArray *weatherDictionary = dictionary[@"weather"];
     NSDictionary *weatherForecast = [weatherDictionary firstObject];
-    NSString *iconName = weatherDictionary[@"icon"];
-    return [self initWithName:name temperature:temperature, iconName:iconName];
+    NSString *iconName = weatherForecast[@"icon"];
+    return [self initWithName:name temperature:temperature iconName:iconName];
 }
 
 @end

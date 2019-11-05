@@ -11,10 +11,10 @@
 @interface IIIForecast : NSObject
 
 @property NSString *name;
-@property double *temperature;
+@property double temperature;
 @property UIImage *image;
 
-- (instancetype)initWithName:(NSString *)name temperature:(double)temperature imageName:(NSString *)dictionary;
+- (instancetype)initWithName:(NSString *)name temperature:(double)temperature iconName:(NSString *)dictionary;
 
 - (instancetype)initWithName:(NSString *)name dictionary:(NSDictionary *)dictionary;
 
