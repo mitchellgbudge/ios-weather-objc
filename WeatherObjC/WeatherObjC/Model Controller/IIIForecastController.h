@@ -8,10 +8,11 @@
 
 #import <Foundation/Foundation.h>
 
-NS_ASSUME_NONNULL_BEGIN
-
 @interface IIIForecastController : NSObject
+
+@property NSArray *forecasts;
+
+- (void)fetchForecastsForZipCode:(int)zipCode completion:(void (^)(NSError *))completion;
 
 @end
 
-NS_ASSUME_NONNULL_END
