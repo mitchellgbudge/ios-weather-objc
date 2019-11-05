@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface IIIWeatherViewController : UIViewController
+@interface IIIWeatherViewController : UIViewController <UISearchBarDelegate, UICollectionViewDelegate, UICollectionViewDataSource>
 
 @end
 

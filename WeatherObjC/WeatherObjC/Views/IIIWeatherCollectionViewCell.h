@@ -7,11 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
-
-NS_ASSUME_NONNULL_BEGIN
+#import "IIIForecast.h"
 
 @interface IIIWeatherCollectionViewCell : UICollectionViewCell
 
+@property IIIForecast *forecast;
+
+- (void) updateViews;
+
 @end
 
-NS_ASSUME_NONNULL_END

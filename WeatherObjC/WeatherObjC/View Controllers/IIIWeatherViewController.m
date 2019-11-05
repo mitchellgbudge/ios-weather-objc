@@ -7,30 +7,55 @@
 //
 
 #import "IIIWeatherViewController.h"
+#import "IIIForecastController.h"
+#import "IIIWeatherCollectionViewCell.h"
 
 @interface IIIWeatherViewController ()
 
 @property (weak, nonatomic) IBOutlet UISearchBar *searchBar;
 @property (weak, nonatomic) IBOutlet UILabel *cityNameLabel;
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
+@property IIIForecastController *forecastController;
 
 @end
 
 @implementation IIIWeatherViewController
 
+- (instancetype)initWithCoder:(NSCoder *)coder
+{
+    self = [super initWithCoder:coder];
+    if (self) {
+        _forecastController = [[IIIForecastController alloc] init];
+    }
+    return self;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    self.searchBar.delegate = self;
+    self.collectionView.dataSource = self;
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
+    return self.forecastController.forecasts.count;
 }
-*/
+
+- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
+    IIIWeatherCollectionViewCell *cell = (IIIWeatherCollectionViewCell *)[collectionView dequeueReusableCellWithReuseIdentifier:@"ForecastCell" forIndexPath:indexPath];
+    cell.forecast = self.forecastController.forecasts[indexPath.row];
+    [cell updateViews];
+    return cell;
+}
+
+- (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar {
+    int zipCode = [searchBar.text intValue];
+    if (zipCode) {
+        [self.forecastController fetchForecastsForZipCode:zipCode completion:^(NSError * _Nonnull error) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self.collectionView reloadData];
+            });
+        }];
+    }
+}
 
 @end
