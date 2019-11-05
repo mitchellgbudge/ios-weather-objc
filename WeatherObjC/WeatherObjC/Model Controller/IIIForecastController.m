@@ -23,7 +23,7 @@ static NSString * const apiKey = @"2198ccfbceb8bcfe318303719f948526";
 }
 
 - (void)fetchForecastsForZipCode:(int)zipCode completion:(void (^)(NSError *))completion {
-    NSString *zipCodeString = [NSString stringWithFormat:@"%i", zipCode];
+    NSString *zipCodeString = [NSString stringWithFormat:@"%d", zipCode];
     NSURL *baseURL = [NSURL URLWithString:baseURLString];
     
     NSURLComponents *components = [[NSURLComponents alloc] initWithURL:baseURL resolvingAgainstBaseURL:true];
